@@ -1,4 +1,9 @@
-import Vue from 'vue'
-import axios from 'axios'
+import Vue from 'vue';
+import axios from 'axios';
+import { getToken } from '../auth';
 
-Vue.prototype.$axios = axios
+if (getToken()) {
+  axios.defaults.headers.common['Authorization'] = `bearer ${getToken()}`;
+}
+
+Vue.prototype.$axios = axios;

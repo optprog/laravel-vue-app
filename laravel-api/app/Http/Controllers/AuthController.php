@@ -40,15 +40,20 @@ class AuthController extends Controller
 
     public function register(Request $request)
     {
-        $hashedPassword = Hash::make($request->password);
-
-        $user = User::create([
-            'email' => $request->email,
-            'name' => $request->name,
-            'password' => $hashedPassword
-        ]);
-
-        $token = auth()->login($user);
+        $user = User::where('email', $request->email)->get();
+        if(count($user) > 0) {
+            return response()->json(['error' => 'This email is already registered.']);
+        } else {
+            $hashedPassword = Hash::make($request->password);
+    
+            $user = User::create([
+                'email' => $request->email,
+                'name' => $request->name,
+                'password' => $hashedPassword
+            ]);
+    
+            $token = auth()->login($user);
+        }
 
         return $this->respondWithToken($token);
     }
@@ -60,7 +65,6 @@ class AuthController extends Controller
      */
     public function me()
     {
-        return auth()->user();
         return response()->json($this->guard()->user());
     }
 
