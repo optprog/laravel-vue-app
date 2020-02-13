@@ -1,7 +1,8 @@
 # How to run Vue.js applicaiton
 
 (You have to install Node.js)
-Go to the vue-frontend folder and in the terminal run `npm install` then run `npm run dev`.
+
+Go to the quasar-vue folder and in the terminal run `npm install` then run `npx @quasar/cli dev`.
 
 # How to run Laravel API
 
